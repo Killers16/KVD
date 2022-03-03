@@ -27,7 +27,7 @@
      </tr>
       
      <tr>   
-     <td>Nr.</td>
+     <td>N</td>
      <td>Vārds</td>
      <td>Uzvārds</td>
      <td>Kurss</td>
