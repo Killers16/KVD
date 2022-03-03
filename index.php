@@ -4,7 +4,7 @@
         <title>Kvalifikācijas darbs </title>
         <link type="text/css" rel="stylesheet" href="CSS/styles.css"/>
         <script type="text/javascript" src="JS\script.js"></script>
-
+        <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
       </head>
 <body>
