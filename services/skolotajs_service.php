@@ -1,10 +1,10 @@
 <?php
-    class StudentService{
-        private $student;
+    class SkolotajsService{
+        private $skolotajs;
         
-        private $table = "students";
+        private $table = "skolotaji";
         
-        /*public function insertSkolotajs($conn, $firstname, $lastname, $){
+        public function insertSkolotajs($conn, $vards, $uzvards){
             $skolotajsExists = false;
             $skolotaji = $this->getAllSkolotaji($conn);
             foreach($skolotaji as $s){
@@ -60,13 +60,13 @@
                 return "<br> Delete process has failed!";
             }
         }
-        */
-        public function getStudentID($conn, $firstname, $lastname, $kurss_id, $program_id, $discipline_id, $years):int{
-            $sql = "SELECT id_students FROM ".$this->table." WHERE firstname = '$firstname' AND lastname = '$lastname' WHERE kurss_id='$kurss_id' WHERE program_id = '$program_id' AND discipline_id ='$discipline_id' WHERE years = '$years'";
+        
+        public function getSkolotajsID($conn, $vards, $uzvards):int{
+            $sql = "SELECT id_skolotajs FROM ".$this->table." WHERE vards = '$vards' AND uzvards = '$uzvards'";
             
             $result = $conn->query($sql);
             $row = $result->fetch_assoc();
-            $id = $row['id_students'];
+            $id = $row['id_skolotajs'];
             
             return $id;
         }
@@ -84,31 +84,25 @@
             return $this->skolotajs;
         }
         
-        public function getAllStudents($conn):array{
+        public function getAllSkolotaji($conn):array{
             $sql = "SELECT * FROM ".$this->table;
             
-            $students = array();
+            $skolotaji = array();
             
             $result = $conn->query($sql);
             
             while($row = $result->fetch_object()){
+                $id = $row->id_skolotajs;
+                $vards = $row->vards;
+                $uzvards = $row->uzvards;
                 
-                $id_students = $row->$id_students ;
-                $firstname = $row->  $firstname;
-                $lastname = $row->$lastname;
-                $kurss_id = $row->$kurss_id;
-                $program_id = $row->$program_id;
-                $personal_code = $row->$personal_code;
-                $discipline_id = $row->$discipline_id;
-                $years = $row->$years;
-
-                $this->student = new Student($firstname, $lastname, $personal_code, $years);
-                $this->student->setID($id_students);
+                $this->skolotajs = new Skolotajs($vards, $uzvards);
+                $this->skolotajs->setID($id);
                 
-                array_push($students, $this->student);
+                array_push($skolotaji, $this->skolotajs);
             }
             
-            return $students;
+            return $skolotaji;
         }
     }
 ?>
