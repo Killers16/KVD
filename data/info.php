@@ -1,9 +1,5 @@
 <?php
-    include_once('students.php');
-    include_once('professions.php');
-    include_once('pers_code.php');
-    include_once('courses.php');
-    include_once('years.php');
+
 
     class Info{
         private $id;

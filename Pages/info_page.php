@@ -9,23 +9,37 @@ ini_set('display_errors', '1');
         <script src="js/script.js"></script>
         <?php
 
-        $nodarbibaService = new NodarbibaService();
+        $infoService = new InfoService();
         
         ?>
     </head>
     <body>
-    <h1>info </h1>
+    <h1>Info </h1>
             <form method="get">
                 Nosaukums: <input type="text" name="gNos" /><br>
                 <br>
-                info: <select name="nodarbiba">
+                info: <select name="infos">
                     <?php
-                        $nodarbiba = $nodarbibaService->getAllNodarbibas($conn);
+                        $info = $infoService->getAllInfos($conn);
                         
-                        foreach($nodarbiba as $n){
-                            $klaseID = $n->getKlaseID($nos);
-                            $nos = $klaseID ->getNosaukums();
-                            echo "<option>$nos </option>";
+                        foreach($info as $i){
+                            $studentID = $i->getStudentID($fName, $lName);
+                            $fName = $studentID ->getFirstName();
+                            $lName = $studentID ->getLastName();
+
+                            $courseID = $i->getCoursesID($names);
+                            $Cname = $courseID ->getNames();
+
+                            $professionID = $i->getProfessionID($names);
+                            $pName = $professionID->getNames();
+
+                            $yearID = $i->getYearID($names);
+                            $yName = $yearID ->getNames();
+
+                            $persCodeID = $i->getPersCodesID($codes);
+                            $persName = $persCodeID ->getCodes();
+
+                            echo "<option>$fName $lName $Cname $profName $yName $persName</option>";
                         }
                     ?>
                     
@@ -77,26 +91,7 @@ ini_set('display_errors', '1');
                 }
             ?>
             
-            <table>
-                <tr>
-                    <th>Nr.</th>
-                    <th>Gads</th>
-                </tr>
-                <?php
-                    $gadi = $gadsService->getAllGadi($conn);
-                    $i = 1;
-                        
-                    foreach($gadi as $g){
-                        $nos = $g->getNosaukums();
-                            
-                        echo "<tr>
-                                <td>$i</td>
-                                <td>$nos</td>
-                            </tr>";
-                        $i++;
-                    }
-                ?>
-            </table>
+            
         
                 </body>
                 </html>

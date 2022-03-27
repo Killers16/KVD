@@ -11,4 +11,5 @@
     include_once($_SERVER["DOCUMENT_ROOT"]."/KVD/data/courses.php");
     include_once($_SERVER["DOCUMENT_ROOT"]."/KVD/data/years.php");
     include_once($_SERVER["DOCUMENT_ROOT"]."/KVD/data/pers_codes.php");
+    include_once($_SERVER["DOCUMENT_ROOT"]."/KVD/data/info.php");
 ?>

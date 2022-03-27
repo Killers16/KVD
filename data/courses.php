@@ -1,5 +1,5 @@
 <?php
-    include_once('students.php');
+
 
     class Courses{
         private $id;

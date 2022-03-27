@@ -1,11 +1,5 @@
 <?php
     
-    include_once('../data/info.php');  
-    include_once('students_service.php');
-    include_once('professions_service.php');
-    include_once('courses_service.php');
-    include_once('pers_codes_service.php');
-    include_once('years_service.php');
     class InfoService{
         private $infos;
         
@@ -13,35 +7,39 @@
         
         private $studentsService, $courseService, $professionsService, $yearsService, $persCodesService;
         
-        public function insertInfo($conn, $fName, $lName, $Cname, $persName,$profName,$yName){
+        public function insertInfo($conn, $fName, $lName, $Cname, $persName,$pName,$yName){
             $studentsService = new StudentsService();
             $courseService = new CoursesService();
             $professionsService = new ProfessionsService();
             $yearsService = new YearsService();
             $persCodesService = new PersCodesService();
 
-            $spID = $spService->getSpID($conn, $prNos, $vards, $uzvards);
-            $klaseID = $klaseService->getKlaseID($conn, $klaseNos);
-            
-            $nodarbibaExists = false;
-            $nodarbibas = $this->getAllNodarbibas($conn);
-            foreach($nodarbibas as $n){
-                $skolVards = $n->getSkolotajs()->getVards();
-                $skolUzvards = $n->getSkolotajs()->getUzvards();
-                $prieksmets = $n->getPrieksmets()->getNosaukums();
-                $klase = $n->getKlase()->getNosaukums();
-                $nDiena = $n->getDiena();
-                $nStunda = $n->getStunda();
+
+            $studentID = $studentsService->getStudentsID($conn, $fName, $lName);
+            $courseID = $courseService->getCoursesID($conn, $names);
+            $professionID = $professionsService ->getProfessionsID($conn,$names);
+            $yearID = $yearService->getYearsID($conn, $names);
+            $persCodeID = $persCodesService->getCodesID($conn, $codes);
+
+            $infosExists = false;
+            $info = $this->getAllInfos($conn);
+            foreach($info as $i){
+                $studFname = $i->getStudent_id()->getFirstName();
+                $studLname = $i->getStudent_id()->getLastName();
+                $courName = $i ->getCourse_id()->getNames();
+                $profName = $i ->getProfession_id()->getNames();
+                $yearName = $i ->getYear_id()->getNames();
+                $persCode = $i ->getPers_code_id()->getCodes();
                 
-                if($prieksmets == $prNos && $klase == $klaseNos &&
-                  $skolVards == $vards && $skolUzvards == $uzvards &&
-                  $nDiena == $diena && $nStunda == $stunda){
-                    $nodarbibaExists = true;
+                if($studFname == $fName && $studLname == $lName &&
+                  $courName == $Cname && $profName == $pName &&
+                  $yearName == $yName && $persCode == $persName){
+                    $infosExists = true;
                     break;
                 }
             }         
             
-            if(!$nodarbibaExists){
+            if(!$infosExists){
                $sql = "INSERT INTO ".$this->table."(sp_id, klase_id, diena, stunda) VALUES ($spID, $klaseID, $diena, $stunda)";
             
                 $isInserted = $conn->query($sql);
@@ -234,41 +232,47 @@
             getNodarbibaByStunda
          */
         
-        public function getAllNodarbibas($conn):array{
-            $klaseService = new KlaseService();
-            $spService = new SpService();
-            $kabinetsService = new KabinetsService();
-            
+        public function getAllInfos($conn):array{
+            $studentsService = new StudentsService();
+            $courseService = new CoursesService();
+            $professionsService = new ProfessionsService();
+            $yearsService = new YearsService();
+            $persCodesService = new PersCodesService();
+
             
             $sql = "SELECT * FROM ".$this->table;
             
-            $nodarbibas = array();
+            $info = array();
             
             $result = $conn->query($sql);
             
             while($row = $result->fetch_object()){
-                $id = $row->id_nodarbiba;
-                $spID = $row->sp_id;
-                $klaseID = $row->klase_id;
-                $kabinetsID = $row->kabinets_id;
-                $diena = $row->diena;
-                $stunda = $row->stunda;
+              
                 
-                $klase = $klaseService->getKlaseByID($conn, $klaseID);
-                $kabinets = $kabinetsService->getKabinetsByID($conn, $kabinetsID);
-                $rinda = $spService->getSpByID($conn, $spID);
+                $studentID = $row->student_id;
+                $courseID = $row->course_id;
+                $professionID = $row->profession_id;
+                $yearID = $row->year_id;
+                $persCodeID = $row->pers_code_id;
 
-                $skolotajs = $rinda[0];
-                $prieksmets = $rinda[1];
+                $student = $studentsService ->getStudentsByID($conn,$studentID);
+                $course = $courseService ->getCoursesByID($conn,$courseID);
+                $profession = $professionsService ->getProfessionsByID($conn,$professionID);
+                $year = $yearService ->getYearsByID($conn,$yearID);
+                $persCode = $persCodesService ->getPersCodesByID($conn,$persCodeID);
                 
-                $this->nodarbiba = new Nodarbiba($skolotajs, $prieksmets, $diena, $stunda, $klase);
-                $this->nodarbiba->setID($id);
-                $this->nodarbiba->setKabinets($kabinets);
                 
-                array_push($skolotaji, $this->skolotajs);
+
+
+                
+                $this->infos = new Info($student, $course, $profession, $year, $persCode);
+                $this->infos->setID($id);
+                
+                
+                array_push($info, $this->infos);
             }
             
-            return $skolotaji;
+            return $info;
         }
     }
 ?>

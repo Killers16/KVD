@@ -1,5 +1,5 @@
 <?php
-    include_once('professions.php');
+ 
 
     class Students{
         private $id;
