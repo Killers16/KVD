@@ -1,23 +1,25 @@
 <?php
-    include_once('../data/nodarbiba.php');
     
-    include_once('skolotajs_service.php');
-    include_once('prieksmets_service.php');
-    include_once('klase_service.php');
-    include_once('kabinets_service.php');
-    include_once('sp_service.php');
+    include_once('../data/info.php');  
+    include_once('students_service.php');
+    include_once('professions_service.php');
+    include_once('courses_service.php');
+    include_once('pers_codes_service.php');
+    include_once('years_service.php');
+    class InfoService{
+        private $infos;
+        
+        private $table = "info";
+        
+        private $studentsService, $courseService, $professionsService, $yearsService, $persCodesService;
+        
+        public function insertInfo($conn, $fName, $lName, $Cname, $persName,$profName,$yName){
+            $studentsService = new StudentsService();
+            $courseService = new CoursesService();
+            $professionsService = new ProfessionsService();
+            $yearsService = new YearsService();
+            $persCodesService = new PersCodesService();
 
-    class NodarbibaService{
-        private $nodarbiba;
-        
-        private $table = "nodarbibas";
-        
-        private $skolotajsService, $klaseService, $prieksmetsService, $spService, $kabinetsService;
-        
-        public function insertNodarbiba($conn, $prNos, $klaseNos, $vards, $uzvards, int $diena, int $stunda){
-            $klaseService = new KlaseService();
-            $spService = new SpService();
-            
             $spID = $spService->getSpID($conn, $prNos, $vards, $uzvards);
             $klaseID = $klaseService->getKlaseID($conn, $klaseNos);
             
@@ -55,7 +57,7 @@
                 return "<br> Such Nodarbiba already exist in DB!";
             }
         }
-        
+
         /*
             Update metodes: 
                 -> updateNodarbiba
@@ -222,6 +224,8 @@
             return $nodarbibas;
         }
         
+       
+
         /*
             
             getNodarbibaByKlase, 

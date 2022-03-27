@@ -1,10 +1,9 @@
 <?php
-    include_once('../data/kabinets.php');
 
-    class KabinetsService{
-        private $kabinets;
+    class PersCodesService{
+        private $persCode;
         
-        private $table = "kabineti";
+        private $table = "pers_codes";
 /* 
     CRUD datu bāzes apstrāde
     C - Create  (Create - struktūras veidošana; Insert - satura ievietošana) 
@@ -13,86 +12,86 @@
     D - Delete  (Drop - struktūras dzēšana; Delete - satura dzēšana)
 */
         
-/* C */ public function insertKabinets($conn, $nos){
-            $kabinetsExists = false;
-            $kabineti = $this->getAllKabineti($conn);
-            foreach($kabineti as $k){
-                $nosaukums = $k->getNosaukums();
+/* C */ public function insertPersCodes($conn, $codes){
+            $persCodeExists = false;
+            $pers_codes = $this->getAllPersCodes($conn);
+            foreach($pers_codes as $p){
+                $code = $p->getCodes();
                 
-                if($nosaukums == $nos){
-                    $kabinetsExists = true;
+                if($codes == $code){
+                    $persCodeExists = true;
                     break;
                 }
             }
             
-            if(!$kabinetsExists){
-               $sql = "INSERT INTO ".$this->table."(nosaukums) VALUES ('$nos')";
+            if(!$persCodeExists){
+               $sql = "INSERT INTO ".$this->table."(codes) VALUES ('$codes')";
             
                 $isInserted = $conn->query($sql);
 
                 if($isInserted){
-                    return "<br> New Kabinets is added in system!";
+                    return "<br> New Persons code is added in system!";
                 }
                 else{
                     return "<br> Insertation process has failed!";
                 } 
             }
             else{
-                return "<br> Kabinets $nos already exist in DB!";
+                return "<br> Persons code $codes already exist in DB!";
             }
             
         }
         
-/* U */ public function updateKabinets($conn, $id, $newNos){
-            $sql = "UPDATE ".$this->table." SET nosaukums = '$newNos' WHERE id_kabinets = $id";
+/* U */ public function updatePersCodes($conn, $id, $newCode){
+            $sql = "UPDATE ".$this->table." SET codes = '$newCode' WHERE id_pers = $id";
             
             $isUpdated = $conn->query($sql);
             
             if($isUpdated){
-                return "<br> Kabinets is updated!";
+                return "<br> Persons code is updated!";
             }
             else{
                 return "<br> Update process has failed!";
             }
         }
         
-/* D */ public function deleteKabinets($conn, $id){
-            $sql = "DELETE FROM ".$this->table." WHERE id_kabinets = $id";
+/* D */ public function deletePersCodes($conn, $id){
+            $sql = "DELETE FROM ".$this->table." WHERE id_pers = $id";
             
             $isDeleted = $conn->query($sql);
             
             if($isDeleted){
-                return "<br> Kabinets is deleted!";
+                return "<br> Persons code is deleted!";
             }
             else{
                 return "<br> Delete process has failed!";
             }
         }
         
-/* R */ public function getKabinetsID($conn, $nos):int{
-            $sql = "SELECT id_kabinets FROM ".$this->table." WHERE nosaukums = '$nos'";
+/* R */ public function getPersCodesID($conn, $codes):int{
+            $sql = "SELECT id_pers FROM ".$this->table." WHERE codes = '$codes'";
             
             $result = $conn->query($sql);
             $row = $result->fetch_assoc();
-            $id = $row['id_kabinets'];
+            $id = $row['id_pers'];
             
             return $id;
         }
         
-        public function getKabinetsByID($conn, $id):Kabinets{
-            $sql = "SELECT nosaukums FROM ".$this->table." WHERE id_kabinets = $id";
+        public function getPersCodesByID($conn, $id):PersCodes{
+            $sql = "SELECT codes FROM ".$this->table." WHERE id_pers = $id";
             
             $result = $conn->query($sql);
             $row = $result->fetch_assoc();
-            $nos = $row['nosaukums'];
+            $codes = $row['codes'];
             
-            $this->kabinets = new Kabinets($nos);
+            $this->persCode = new PersCodes($codes);
             
             return $this->kabinets;
         }
         
-        public function getKabinetsByNos($conn, $nos):Kabinets{
-            $sql = "SELECT id_kabinets, nosaukums FROM ".$this->table." WHERE nosaukums = '$nos'";
+        public function getKabinetsByCode($conn, $codes):PersCodes{
+            $sql = "SELECT id_pers, codes FROM ".$this->table." WHERE codes = '$codes'";
             
             // izvelk datus no DB
             $result = $conn->query($sql);
@@ -101,20 +100,20 @@
             $row = $result->fetch_assoc();
             
             // saglabā katra lauka vērtību savā mainīgajā/objektā
-            $id = $row['id_kabinets'];
-            $nosaukums = $row['nosaukums'];
+            $id = $row['id_pers'];
+            $codes = $row['codes'];
             
             // izveido atbilstošās klases objektu un, ja nepieciešams, ar set() metodēm uzstāda vērtības, ko neuzstādīja ar __construct() palīdzību
-            $this->kabinets = new Kabinets($nosaukums);
-            $this->kabinets->setID($id);
+            $this->persCode = new PersCodes($codes);
+            $this->persCode->setID($id);
             
-            return $this->kabinets;
+            return $this->persCode;
         }
         
-        public function getAllKabineti($conn):array{
+        public function getAllPersCodes($conn):array{
             $sql = "SELECT * FROM ".$this->table;
             
-            $kabineti = array();
+            $pers_codes = array();
             
             // izvelk datus no DB
             $result = $conn->query($sql);
@@ -122,17 +121,17 @@
             // no DB iegūtos datus pārveido objetu formātā, kur objekta attribūtu nosaukumi sakrīt ar vaicājuma SELECT daļā uzskaitīto lauku nosaukumiem
             while($row = $result->fetch_object()){
                 // saglabā katra lauka vērtību savā mainīgajā/objektā
-                $id = $row->id_kabinets;
-                $nos = $row->nosaukums;
+                $id = $row->id_pers;
+                $codes = $row->codes;
                 
                 // izveido atbilstošās klases objektu un, ja nepieciešams, ar set() metodēm uzstāda vērtības, ko neuzstādīja ar __construct() palīdzību
-                $this->kabinets = new Kabinets($nos);
-                $this->kabinets->setID($id);
+                $this->persCode = new PersCodes($codes);
+                $this->persCode->setID($id);
                 
-                array_push($kabineti, $this->kabinets);
+                array_push($pers_codes, $this->persCode);
             }
             
-            return $kabineti;
+            return $pers_codes;
         }
     }
 ?>
