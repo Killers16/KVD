@@ -9,7 +9,7 @@
         private $profession_id; 
         private $year_id;
         
-        public function __construct(Students $student_id, Course $course_id ,PersCodes $pers_code_id ,Professions $profession_id, Years $year_id){
+        public function __construct(Students $student_id, Courses $course_id ,PersCodes $pers_code_id ,Professions $profession_id, Years $year_id){
             $this->student_id = $student_id;
             $this->course_id = $course_id;
             $this->pers_code_id = $pers_code_id;

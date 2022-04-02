@@ -14,7 +14,7 @@ ini_set('display_errors', '1');
         ?>
     </head>
     <body>
-    <h1>Priekšmetu dati</h1>
+    <h1>Profesijas dati</h1>
             <form method="get">
                 Profesijas Nosaukums: <input type="text" name="name" /><br>
                 </select>
@@ -81,7 +81,7 @@ ini_set('display_errors', '1');
             <table>
                 <tr>
                     <th>Nr.</th>
-                    <th>Mācību priekšmets</th>
+                    <th>Profesijas</th>
                 </tr>
                 <?php
                     $professions = $professionsService->getAllProfessions($conn);

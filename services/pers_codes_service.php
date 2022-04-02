@@ -87,7 +87,7 @@
             
             $this->persCode = new PersCodes($codes);
             
-            return $this->kabinets;
+            return $this->persCode;
         }
         
         public function getKabinetsByCode($conn, $codes):PersCodes{

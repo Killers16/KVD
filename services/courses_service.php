@@ -72,7 +72,7 @@
             return $id;
         }
         
-        public function getCoursesByID($conn, $id):Course{
+        public function getCoursesByID($conn, $id):Courses{
             $sql = "SELECT names FROM ".$this->table." WHERE id_course = $id";
             
             $result = $conn->query($sql);
@@ -80,7 +80,7 @@
             $names = $row['names'];
              
             
-            $this->course = new Course($names);
+            $this->course = new Courses($names);
             
             return $this->course;
         }

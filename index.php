@@ -29,8 +29,8 @@ ini_set('display_errors', '1');
             <button id="defaultOpen" class="tablinks" onclick="openSection(event, 'student')">Audzeknis</button>
             <button class="tablinks" onclick="openSection(event, 'course')">Kurss</button>
             <button class="tablinks" onclick="openSection(event, 'profession')">Profesija</button>         
-            <button class="tablinks" onclick="openSection(event, 'pers_code')">Personas Kods</button>
-            <button class="tablinks" onclick="openSection(event, 'year')">Gads</button>
+           
+            
             <button class="tablinks" onclick="openSection(event, 'info')" >Info</button>
              </div>
 
@@ -44,14 +44,7 @@ ini_set('display_errors', '1');
         <div id="profession" class="tabcontent">
                 <?php include("Pages/professions_page.php");?>
         </div>
-        
-        <div id="pers_code" class="tabcontent">
-                <?php include("Pages/pers_codes_page.php");?>
-        </div>
-
-        <div id="year" class="tabcontent">
-                <?php include("Pages/years_page.php");?>
-        </div>
+  
          <div id="info" class="tabcontent">
                 <?php include("Pages/info_page.php");?>
                 </div>

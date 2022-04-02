@@ -5,12 +5,14 @@
         private $id;
         private $firstName;
         private $lastName;
-       
+        private $codes;
+        private $years;
 
-        public function __construct($firstName, $lastName){
+        public function __construct($firstName, $lastName,$codes,$years){
             $this->firstName = $firstName;
             $this->lastName = $lastName;
-            
+            $this->codes = $codes;
+            $this->years = $years;
         }
         
         public function setID(int $id){
@@ -36,5 +38,31 @@
             return $this->lastName;
         }
        
+        public function getCodes()
+        {
+                return $this->codes;
+        }
+
+       
+        public function setCodes($codes)
+        {
+                $this->codes = $codes;
+
+                return $this;
+        }
+
+    
+        public function getYears()
+        {
+                return $this->years;
+        }
+
+     
+        public function setYears($years)
+        {
+                $this->years = $years;
+
+                return $this;
+        }
     }
 ?>

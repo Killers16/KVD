@@ -18,32 +18,25 @@ ini_set('display_errors', '1');
             <form method="get">
                 Nosaukums: <input type="text" name="gNos" /><br>
                 <br>
-                info: <select name="infos">
+                
                     <?php
                         $info = $infoService->getAllInfos($conn);
-                        
+                        echo count($info);
+                        $studentService = new StudentsService();
                         foreach($info as $i){
-                            $studentID = $i->getStudentID($fName, $lName);
-                            $fName = $studentID ->getFirstName();
-                            $lName = $studentID ->getLastName();
+                            $studentID = $i->getStudent_id();
+                            $student = $studentService->getStudentsByID($conn,$studentID);
+                            
+                            $fName = $student ->getFirstName();
+                            $lName = $student ->getLastName();
 
-                            $courseID = $i->getCoursesID($names);
-                            $Cname = $courseID ->getNames();
+                           
 
-                            $professionID = $i->getProfessionID($names);
-                            $pName = $professionID->getNames();
-
-                            $yearID = $i->getYearID($names);
-                            $yName = $yearID ->getNames();
-
-                            $persCodeID = $i->getPersCodesID($codes);
-                            $persName = $persCodeID ->getCodes();
-
-                            echo "<option>$fName $lName $Cname $profName $yName $persName</option>";
+                            echo "<option>$fName $lName </option>";
                         }
                     ?>
                     
-                </select>
+                
 
                 <br>
                 <br>

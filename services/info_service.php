@@ -5,21 +5,18 @@
         
         private $table = "info";
         
-        private $studentsService, $courseService, $professionsService, $yearsService, $persCodesService;
+        private $studentsService, $courseService, $professionsService;
         
-        public function insertInfo($conn, $fName, $lName, $Cname, $persName,$pName,$yName){
+        public function insertInfo($conn, $fName, $lName,$codes,$years,$names){
             $studentsService = new StudentsService();
             $courseService = new CoursesService();
             $professionsService = new ProfessionsService();
-            $yearsService = new YearsService();
-            $persCodesService = new PersCodesService();
+           
 
-
-            $studentID = $studentsService->getStudentsID($conn, $fName, $lName);
+            $studentID = $studentsService->getStudentsID($conn, $fName, $lName,$code,$year);
             $courseID = $courseService->getCoursesID($conn, $names);
             $professionID = $professionsService ->getProfessionsID($conn,$names);
-            $yearID = $yearService->getYearsID($conn, $names);
-            $persCodeID = $persCodesService->getCodesID($conn, $codes);
+            
 
             $infosExists = false;
             $info = $this->getAllInfos($conn);
@@ -28,19 +25,17 @@
                 $studLname = $i->getStudent_id()->getLastName();
                 $courName = $i ->getCourse_id()->getNames();
                 $profName = $i ->getProfession_id()->getNames();
-                $yearName = $i ->getYear_id()->getNames();
-                $persCode = $i ->getPers_code_id()->getCodes();
+                
                 
                 if($studFname == $fName && $studLname == $lName &&
-                  $courName == $Cname && $profName == $pName &&
-                  $yearName == $yName && $persCode == $persName){
+                  $courName == $Cname && $profName == $pName){
                     $infosExists = true;
                     break;
                 }
             }         
             
             if(!$infosExists){
-               $sql = "INSERT INTO ".$this->table."(sp_id, klase_id, diena, stunda) VALUES ($spID, $klaseID, $diena, $stunda)";
+               $sql = "INSERT INTO ".$this->table."(student_id,course_id,profession_id) VALUES ($studentID, $courseID, $professionID)";
             
                 $isInserted = $conn->query($sql);
 
@@ -236,8 +231,7 @@
             $studentsService = new StudentsService();
             $courseService = new CoursesService();
             $professionsService = new ProfessionsService();
-            $yearsService = new YearsService();
-            $persCodesService = new PersCodesService();
+           
 
             
             $sql = "SELECT * FROM ".$this->table;
@@ -252,21 +246,20 @@
                 $studentID = $row->student_id;
                 $courseID = $row->course_id;
                 $professionID = $row->profession_id;
-                $yearID = $row->year_id;
-                $persCodeID = $row->pers_code_id;
+                
 
                 $student = $studentsService ->getStudentsByID($conn,$studentID);
                 $course = $courseService ->getCoursesByID($conn,$courseID);
                 $profession = $professionsService ->getProfessionsByID($conn,$professionID);
-                $year = $yearService ->getYearsByID($conn,$yearID);
-                $persCode = $persCodesService ->getPersCodesByID($conn,$persCodeID);
+            
                 
                 
 
 
                 
-                $this->infos = new Info($student, $course, $profession, $year, $persCode);
-                $this->infos->setID($id);
+                $this->infos = new Info($student, $course,  $profession );
+               $this->infos->setID($row->id_info);
+
                 
                 
                 array_push($info, $this->infos);
