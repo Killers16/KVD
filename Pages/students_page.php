@@ -6,7 +6,7 @@ ini_set('display_errors', '1');
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link rel="stylesheet" href="css/style.css" />
-        <script src="js/script.js"></script>
+
     
         <?php
          include_once('extras/includes.php');
@@ -107,41 +107,52 @@ ini_set('display_errors', '1');
                     
                     header('Location: index.php');
                 }
+                // Filter
+                if(isset($_POST['search']))
+                {
+                    $valueToSearch = $_POST['valueToSearch'];
+                    $query = "SELECT * FROM `students` WHERE CONCAT(`firstName`, `lastName`, `years`,`codes`) LIKE '%".$valueToSearch."%'";
+                    $search_result = filterTable($query);
+
+                }
+                 else {
+                    $query = "SELECT * FROM `students`";
+                    $search_result = filterTable($query);
+                }
+
+                // function to connect and execute the query
+                function filterTable($query)
+                {
+                    $connect = mysqli_connect("localhost", "root", "root", "KVD");
+                    $filter_Result = mysqli_query($connect, $query);
+                    return $filter_Result;
+                }
             ?>
             
-            <table >
-                <tr>
-                    <th>Nr.</th>
-                    <th>Vārds</th>
-                    <th>Uzvārds</th>
-                    <th>Personas kods</th>
-                    <th>Gads</th>
-                    
-                </tr>
-                <?php
-                   
-                    $students = $studentsService->getAllStudents($conn);
-                    $i = 1;
-                        
-                    foreach($students as $s){
-                        $fName = $s->getFirstName();
-                        $lName = $s->getLastName();
-                        $code = $s->getCodes();
-                        $year = $s->getYears();    
-                        echo "<tr>
-                                <td>$i</td>
-                                <td>$fName</td>
-                                <td>$lName</td>
-                                <td>$code</td>
-                                <td>$year</td>
+            <form action="" method="post">
+                        <input type="text" name="valueToSearch" placeholder="Value To Search">
+                        <input type="submit" name="search" value="Filter" class="margin:5px;">
+                        <input type="submit" name="search" value="Cancel" class="margin:5px;"><br><br>
 
-                            </tr>";
-                            
-                        $i++;
-                    }
-                ?>
-            </table>
+                        <table>
+                            <tr>
+                                <th>Name</th>
+                                <th>Uzvārds</th>
+                                <th>Gads</th>
+                                <th>Personas Kods</th>
+                            </tr>
 
-  
+                            <?php while($row = mysqli_fetch_array($search_result)):?>
+                            <tr>
+                                <td><?php echo $row['firstName'];?></td>
+                                <td><?php echo $row['lastName'];?></td>
+                                <td><?php echo $row['years'];?></td>
+                                <td><?php echo $row['codes'];?></td>
+                            </tr>
+                            <?php endwhile;?>
+                        </table>
+                    </form>
+
+
     </body>
     </html>

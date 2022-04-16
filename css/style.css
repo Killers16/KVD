@@ -28,5 +28,14 @@
     border:  1px solid #cccccc;
     border-top: none; 
 }
-
- 
+.margin{
+    mrgin: 5px;
+}
+.flex{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: space-between;
+    align-items: flex-start;
+    justify-content: space-evenly;
+}

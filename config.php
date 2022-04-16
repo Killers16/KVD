@@ -11,4 +11,12 @@
             if($conn->connect_error){
                 die("Connection failed!".$conn->connect_error);
             }
+
+
+            try {
+                $dbConn = new PDO("mysql:host={$hostname};dbname={$database}", $user, "root");
+                $dbConn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+            }
             ?>

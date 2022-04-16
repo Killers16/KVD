@@ -10,10 +10,10 @@ if(isset($_POST["export"]))
  {
   $output .= '
    <table class="table" bordered="1">  
-                    <tr>  
-                         <th>Name</th>  
-                         <th>Address</th>  
-                         <th>City</th>  
+       <tr>
+       <th>Name</th>
+      <th>Address</th>
+       <th>City</th>
        <th>Postal Code</th>
        <th>Country</th>
                     </tr>
