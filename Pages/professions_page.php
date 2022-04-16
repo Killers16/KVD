@@ -8,7 +8,7 @@ ini_set('display_errors', '1');
         <link rel="stylesheet" href="css/style.css" />
         <script src="js/script.js"></script>
         <?php
-
+ include_once('extras/includes.php');
         $professionsService = new ProfessionsService();
         
         ?>
@@ -39,7 +39,9 @@ ini_set('display_errors', '1');
                 <input type="submit" name="deleteProfessions" value="Dzēst" />
             </form>
             <br>
-            
+            <form method="post" action="extras/export_profession.php">
+             <input type="submit" name="export" class="btn btn-success" value="Export" />
+            </form>
             <?php
                 if(isset($_GET['newProfessions'])){
                     if($_GET['name'] != ""){

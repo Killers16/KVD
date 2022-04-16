@@ -8,9 +8,9 @@
             $courseExists = false;
             $courses = $this->getAllCourses($conn);
             foreach($courses as $c){
-                $name = $c->getNames();
+                $Cname = $c->getNames();
                 
-                if($names == $name){
+                if($names == $Cname){
                     $courseExists = true;
                     break;
                 }
@@ -30,7 +30,7 @@
                 }
             }
             else{
-                return "<br> Course $names already exist in DB!";
+                return "<br> Course $Cname already exist in DB!";
             }
         }
         public function updateCoursesNames($conn, $id, $newNames){
@@ -62,8 +62,8 @@
             }
         }
         
-        public function getCoursesID($conn, $names):int{
-            $sql = "SELECT id_course FROM ".$this->table." WHERE names = '$names'";
+        public function getCoursesID($conn, $Cname):int{
+            $sql = "SELECT id_course FROM ".$this->table." WHERE names = '$Cname'";
             
             $result = $conn->query($sql);
             $row = $result->fetch_assoc();
@@ -77,10 +77,10 @@
             
             $result = $conn->query($sql);
             $row = $result->fetch_assoc();
-            $names = $row['names'];
+            $Cname = $row['names'];
              
             
-            $this->course = new Courses($names);
+            $this->course = new Courses($Cname);
             
             return $this->course;
         }
@@ -96,10 +96,10 @@
             
             while($row = $result->fetch_object()){
                 $id = $row->id_course;
-                $names = $row->names;
+                $Cnames = $row->names;
                 
                 
-                $this->course = new Courses($names);
+                $this->course = new Courses($Cnames);
                 $this->course->setID($id);
                 
                 array_push($courses, $this->course);

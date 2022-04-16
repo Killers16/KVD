@@ -7,22 +7,24 @@ ini_set('display_errors', '1');
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link rel="stylesheet" href="css/style.css" />
         <script src="js/script.js"></script>
+    
         <?php
-        
+         include_once('extras/includes.php');
             $studentsService = new StudentsService();
-           
             
+           
         ?>
     </head>
     <body>
     
             <h1>Audzekņa dati</h1>
             <form method="get">
-                Vārds: <input type="text" name="fname" /><br>
-                Uzvārds: <input type="text" name="lname" /><br>
-                Personas kods: <input type="text" name="code" placeholder="Personas koda 1 daļa"/><br>
-                Iestāšanas gads: <input type="text" name="year" /><br>
-                Audzeknis: <select name="student">
+            
+                Vārds: <input type="text" name="fname"  /><br>
+                Uzvārds: <input type="text" name="lname"  /><br>
+                Personas kods: <input type="text" name="code"/> </br>
+                Iestāšanas gads: <input type="text" name="year"/><br>
+                Audzeknis: <select name="student" >
 
                     <?php
                         $students = $studentsService->getAllStudents($conn);
@@ -38,16 +40,23 @@ ini_set('display_errors', '1');
                         }
                     ?>
                 </select>
+                
                 <br>
                 <br>
                 <input type="submit" name="newStudents" value="Pievienot" /> 
                 <input type="submit" name="editStudents" value="Labot" /> 
                 <input type="submit" name="deleteStudents" value="Dzēst" />
+       
+               				
+               
+            </form>
+            <form method="post" action="extras/export_students.php">
+             <input type="submit" name="export" class="btn btn-success" value="Export" />
             </form>
             <br>
-            
-            <?php
+            <?php 
                 if(isset($_GET['newStudents'])){
+                     
                     if($_GET['fname'] != "" && $_GET['lname'] != "" && $_GET['code'] != "" && $_GET['year'] != ""){
                         $firstName = $_GET['fname'];
                         $lastName = $_GET['lname'];
@@ -68,7 +77,7 @@ ini_set('display_errors', '1');
                     
                         $oldCode = explode(" ", $student)[2];
                         $oldYear = explode(" ", $student)[3];
-                    echo $student;
+                   
 
                         $newfName = $_GET['fname'];
                         $newlName = $_GET['lname'];
@@ -76,7 +85,7 @@ ini_set('display_errors', '1');
                         $newYear = $_GET['year'];
                        
                         
-                        $id = $studentsService->getStudentsId($conn, $oldfname, $oldlname,$oldCode,$oldYear);
+                        $id = $studentsService->getStudentsID($conn, $oldfname, $oldlname,$oldCode,$oldYear);
                         
                         $info = $studentsService->updateStudents($conn, $id, $newfName, $newlName,$newCode,$newYear);
                     }
@@ -100,7 +109,7 @@ ini_set('display_errors', '1');
                 }
             ?>
             
-            <table>
+            <table >
                 <tr>
                     <th>Nr.</th>
                     <th>Vārds</th>
@@ -127,11 +136,12 @@ ini_set('display_errors', '1');
                                 <td>$year</td>
 
                             </tr>";
+                            
                         $i++;
                     }
                 ?>
             </table>
-        
 
+  
     </body>
     </html>

@@ -8,7 +8,7 @@ ini_set('display_errors', '1');
         <link rel="stylesheet" href="css/style.css" />
         <script src="js/script.js"></script>
         <?php
-
+         include_once('extras/includes.php');
         $coursesService = new CoursesService();
         
         ?>
@@ -23,9 +23,9 @@ ini_set('display_errors', '1');
                         $courses = $coursesService->getAllCourses($conn);
                         
                         foreach($courses as $c){
-                            $names = $c->getNames();
+                            $Cname = $c->getNames();
                             
-                            echo "<option>$names</option>";
+                            echo "<option>$Cname</option>";
                         }
                     ?>
                 </select>
@@ -37,13 +37,15 @@ ini_set('display_errors', '1');
                 <input type="submit" name="deleteCourses" value="Dzēst" />
             </form>
             <br>
-            
+            <form method="post" action="extras/export_course.php">
+             <input type="submit" name="export" class="btn btn-success" value="Export" />
+            </form>
             <?php
                 if(isset($_GET['newCourses'])){
                     if($_GET['name'] != ""){
-                        $names = $_GET['name'];
+                        $Cname = $_GET['name'];
  
-                            $info = $coursesService->insertCourses($conn, $names);
+                            $info = $coursesService->insertCourses($conn, $Cname);
 
                     }
                     
@@ -112,12 +114,12 @@ ini_set('display_errors', '1');
                     $i = 1;
                         
                     foreach($courses as $c){
-                        $names = $c->getNames();
+                        $Cname = $c->getNames();
                         
                             
                         echo "<tr>
                                 <td>$i</td>
-                                <td>$names</td>
+                                <td>$Cname</td>
                             </tr>";
                         $i++;
                     }

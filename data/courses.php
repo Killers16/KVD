@@ -3,11 +3,11 @@
 
     class Courses{
         private $id;
-        private $names;
+        private $Cnames;
        
         
-        public function __construct($names){
-            $this->names = $names;
+        public function __construct($Cnames){
+            $this->Cnames = $Cnames;
         }
         
         public function setID(int $id){
@@ -18,12 +18,12 @@
             return $this->id;
         }
         
-        public function setNames($names){
-            $this->names = $names;
+        public function setNames($Cnames){
+            $this->Cnames = $Cnames;
         }
         
         public function getNames(){
-            return $this->names;
+            return $this->Cnames;
         }
         
     }

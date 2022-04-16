@@ -4,17 +4,15 @@
     class Info{
         private $id;
         private $student_id; 
-	    private $course_id;
-	    private $pers_code_id; 
+	private $course_id;
         private $profession_id; 
-        private $year_id;
+       
         
-        public function __construct(Students $student_id, Courses $course_id ,PersCodes $pers_code_id ,Professions $profession_id, Years $year_id){
+        public function __construct(Students $student_id, Courses $course_id ,Professions $profession_id){
             $this->student_id = $student_id;
             $this->course_id = $course_id;
-            $this->pers_code_id = $pers_code_id;
             $this->profession_id = $profession_id;
-            $this->year_id = $year_id;
+            
         }
 
         public function getId()
@@ -53,17 +51,7 @@
 	    	    return $this;
 	    }
  
-	    public function getPers_code_id()
-	    {
-	    	    return $this->pers_code_id;
-	    }
-
-	    public function setPers_code_id($pers_code_id)
-	    {
-	    	    $this->pers_code_id = $pers_code_id;
-
-	    	    return $this;
-	    }
+	    
 
         public function getProfession_id()
         {
@@ -78,16 +66,6 @@
                 return $this;
         }
 
-        public function getYear_id()
-        {
-                return $this->year_id;
-        }
-
-        public function setYear_id($year_id)
-        {
-                $this->year_id = $year_id;
-
-                return $this;
-        }
+        
     }
 ?>

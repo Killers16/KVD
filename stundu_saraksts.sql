@@ -33,16 +33,16 @@ CREATE TABLE info(
     
     
 -- INSERT INTO student
-INSERT INTO students(firstName, lastName,codes,years) VALUES ("Anna", "Aleksejeva",119,2001);
-INSERT INTO students(firstName, lastName,codes,years) VALUES ("Ilva", "Aleksejeva",121,2002);
-INSERT INTO students(firstName, lastName,codes,years) VALUES ("Arturs", "Artemjevs",122,2003);
-INSERT INTO students(firstName, lastName,codes,years) VALUES ("Aigars", "Ašaks",125,2004);
-INSERT INTO students(firstName, lastName,codes,years) VALUES ("Ziedonis", "Bārbals",126,2005);
-INSERT INTO students(firstName, lastName,codes,years) VALUES ("Žanete", "Beča",211,2006);
-INSERT INTO students(firstName, lastName,codes,years) VALUES ("Iluta", "Bērziņa",212,2007);
-INSERT INTO students(firstName, lastName,codes,years) VALUES ("Paula", "Bokāne",213,2008);
-INSERT INTO students(firstName, lastName,codes,years) VALUES ("Marika", "Boķe",214,2009);
-INSERT INTO students(firstName, lastName,codes,years) VALUES ("Ilze", "Briede",201,2010);
+INSERT INTO students(firstName, lastName,codes,years) VALUES ("Anna", "Aleksejeva","119","2001");
+INSERT INTO students(firstName, lastName,codes,years) VALUES ("Ilva", "Aleksejeva","121","2002");
+INSERT INTO students(firstName, lastName,codes,years) VALUES ("Arturs", "Artemjevs","122","2003");
+INSERT INTO students(firstName, lastName,codes,years) VALUES ("Aigars", "Ašaks","125","2004");
+INSERT INTO students(firstName, lastName,codes,years) VALUES ("Ziedonis", "Bārbals","126","2005");
+INSERT INTO students(firstName, lastName,codes,years) VALUES ("Žanete", "Beča","211","2006");
+INSERT INTO students(firstName, lastName,codes,years) VALUES ("Iluta", "Bērziņa","212","2007");
+INSERT INTO students(firstName, lastName,codes,years) VALUES ("Paula", "Bokāne","213","2008");
+INSERT INTO students(firstName, lastName,codes,years) VALUES ("Marika", "Boķe","214","2009");
+INSERT INTO students(firstName, lastName,codes,years) VALUES ("Ilze", "Briede","201","2010");
 
 
 -- INSERT INTO course

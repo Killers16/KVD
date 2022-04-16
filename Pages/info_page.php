@@ -8,7 +8,7 @@ ini_set('display_errors', '1');
         <link rel="stylesheet" href="css/style.css" />
         <script src="js/script.js"></script>
         <?php
-
+        include_once('extras/includes.php');
         $infoService = new InfoService();
         
         ?>
@@ -18,56 +18,58 @@ ini_set('display_errors', '1');
             <form method="get">
                 Nosaukums: <input type="text" name="gNos" /><br>
                 <br>
-                
+                    Info: <select name="info">
                     <?php
-                        $info = $infoService->getAllInfos($conn);
-                        echo count($info);
-                        $studentService = new StudentsService();
-                        foreach($info as $i){
-                            $studentID = $i->getStudent_id();
-                            $student = $studentService->getStudentsByID($conn,$studentID);
+                       $infos = $infoService->getAllInfos($conn);
+                        
+                        $studentsService = new StudentsService();
+                        $courseService = new CoursesService();
+                        $professionsService = new ProfessionsService();
+                       
+                        foreach($infos as $i){
+                          
+                         
+                            $fName = $i->getStudent_id()->getFirstName();
+                            $lName = $i->getStudent_id()->getLastName();
+                            $code = $i ->getStudent_id()->getCodes();
+                            $year = $i ->getStudent_id()->getYears();
+                            $course = $i ->getCourse_id()->getNames();
+                            $profession = $i ->getProfession_id()->getNames();  
                             
-                            $fName = $student ->getFirstName();
-                            $lName = $student ->getLastName();
-
-                           
-
-                            echo "<option>$fName $lName </option>";
+                            
+                            echo "<option> $fName $lName  $code $year $course $profession</option>";
+                                
                         }
+                        
                     ?>
-                    
+                    </select><br />
+                   
+                   
                 
+                 
+                <input type="submit" name="editCourses" value="Labot" /> 
+                <input type="submit" name="deleteCourses" value="Dzēst" />
 
-                <br>
-                <br>
-                <input type="submit" name="newGads" value="Pievienot"/>
-                <input type="submit" name="editGads" value="Labot"/>
-                <input type="submit" name="deleteGads" value="Dzēst"/>
             </form>
             <br>
+            <form method="post" action="extras/export_info.php">
+             <input type="submit" name="export" class="btn btn-success" value="Export" />
+            </form>
+
+                
             
             <?php
-                if(isset($_GET['newGads'])){
-                    if($_GET['gNos'] != ""){
-                        $gNos = $_GET['gNos'];
-                        
-                        
-                        $info = $gadsService->insertGads($conn, $gNos);
-                        
-                    }
-                    
-                    header('Location: index.php');
-                }
+                
             
-                if(isset($_GET['editGads'])){
+                if(isset($_GET['editCourses'])){
                     if($_GET['gNos'] != ""){
-                        $gads = $_GET['gads'];
+                        $nos = $_GET['gNos'];
                         
-                        $newGads = $_GET['gNos'];
+                        $newCnames = $_GET['gNos'];
                         
-                        $id = $gadsService->getGadsID($conn, $gads);
+                        $id = $infoService->get($conn, $nos);
                         
-                        $info = $gadsService->updateGads($conn, $id, $newGads);
+                        $info = $infoService->updateInfosCourse($conn, $id, $newCnames);
                     }
                     
                     header('Location: index.php');
@@ -83,7 +85,42 @@ ini_set('display_errors', '1');
                     header('Location: index.php');
                 }
             ?>
-            
+            <table>
+                <tr>
+                    <th>Nr.</th>
+                    <th>Vārds</th>
+                    <th>Uzvārds</th>
+                    <th>Personas kods</th> 
+                    <th>Gads</th>
+                    <th>Kurss</th>
+                    <th>Profesija</th>
+                </tr>
+                <?php
+                   
+                   $infos = $infoService->getAllInfos($conn);
+                    $n = 1;
+                        
+                    foreach($infos as $i){
+                            $fName = $i->getStudent_id()->getFirstName();
+                            $lName = $i->getStudent_id()->getLastName();
+                            $code = $i ->getStudent_id()->getCodes();
+                            $year = $i ->getStudent_id()->getYears();
+                            $course = $i ->getCourse_id()->getNames();
+                            $profession = $i ->getProfession_id()->getNames();  
+                        echo "<tr>
+                                <td>$n</td>
+                                <td>$fName</td>
+                                <td>$lName</td>
+                                <td>$code</td>
+                                <td>$year</td>
+                                <td>$course</td>
+                                <td>$profession</td>
+
+                            </tr>";
+                        $n++;
+                    }
+                ?>
+            </table>
             
         
                 </body>

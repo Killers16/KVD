@@ -4,7 +4,7 @@
         
         private $table = "students";
         
-        public function insertStudents($conn, $firstName, $lastName,$codes, $years){
+        public function insertStudents($conn, $firstName, $lastName,String $codes, $years){
             $studentExists = false;
             $students = $this->getAllStudents($conn);
             foreach($students as $s){
@@ -19,7 +19,7 @@
             }
             
             if(!$studentExists){
-                $sql = "INSERT INTO ".$this->table."(firstName, lastName,codes,years) VALUES ('$firstName', '$lastName',$codes,$years)";
+                $sql = "INSERT INTO ".$this->table."(firstName, lastName,codes,years) VALUES ('$firstName', '$lastName','$codes',$years)";
                 
                 $isInserted = $conn->query($sql);
             
@@ -36,8 +36,8 @@
             
         }
         
-        public function updateStudents($conn, $id, $newfName, $newlName, $newCode, $newYear){
-            $sql = "UPDATE ".$this->table." SET firstName = '$newfName', lastName = '$newlName', codes = $newCode, years = $newYear WHERE id_student = $id";
+        public function updateStudents($conn, $id, $newfName, $newlName,String $newCode, $newYear){
+            $sql = "UPDATE ".$this->table." SET firstName = '$newfName', lastName = '$newlName', codes = '$newCode', years = $newYear WHERE id_student = $id";
             
             $isUpdated = $conn->query($sql);
             
@@ -62,8 +62,8 @@
             }
         }
         
-        public function getStudentsID($conn, $fName, $lName,$code,$year):int{
-            $sql = "SELECT id_student FROM ".$this->table." WHERE firstName = '$fName' AND lastName = '$lName' AND codes = $code AND years = $year;";
+        public function getStudentsID($conn, $fName, $lName,String $code,$year):int{
+            $sql = "SELECT id_student FROM ".$this->table." WHERE firstName = '$fName' AND lastName = '$lName' AND codes = '$code' AND years = $year;";
             $result = $conn->query($sql);
             $row = $result->fetch_assoc();
             $id = $row['id_student'];
@@ -78,12 +78,13 @@
             $row = $result->fetch_assoc();
             $fName = $row['firstName'];
             $lName = $row['lastName'];
-            $code = $row['codes'];
-            $year = $row['years'];
+            $code = (int) $row['codes'];
+            $year = (int) $row['years'];
             $this->student = new Students($fName, $lName,$code,$year);
             
             return $this->student;
         }
+       
         
         public function getAllStudents($conn):array{
             $sql = "SELECT * FROM ".$this->table;
@@ -93,13 +94,13 @@
             $result = $conn->query($sql);
             
             while($row = $result->fetch_object()){
-                $id = $row->id_student;
+                $id = (int)$row->id_student;
                 $fName = $row->firstName;
                 $lName = $row->lastName;
-                $code = $row->codes;
-                $year = $row->years;
+                $code = (int)$row->codes;
+                $year = (int)$row->years;
 
-                $this->student = new Students($fName, $lName,$code,$year);
+                $this->student = new Students($fName, $lName, $code,$year);
                 $this->student->setID($id);
                 
                 array_push($students, $this->student);

@@ -8,7 +8,7 @@
         private $codes;
         private $years;
 
-        public function __construct($firstName, $lastName,$codes,$years){
+        public function __construct($firstName, $lastName,String $codes,$years){
             $this->firstName = $firstName;
             $this->lastName = $lastName;
             $this->codes = $codes;
@@ -44,7 +44,7 @@
         }
 
        
-        public function setCodes($codes)
+        public function setCodes(String $codes)
         {
                 $this->codes = $codes;
 
