@@ -3,46 +3,30 @@ ini_set('display_errors', '1');
 ?>
 <!doctype html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link rel="stylesheet" href="css/style.css" />
-        <script src="js/script.js"></script>
-        <?php
-            
-            include_once('extras/includes.php');
-        
-        
-        ?>
-    </head>
-    <body>
-        <div class="tab">
-            <button id="defaultOpen" class="tablinks" onclick="openSection(event, 'student')">Audzeknis</button>
-            <button class="tablinks" onclick="openSection(event, 'course')">Kurss</button>
-            <button class="tablinks" onclick="openSection(event, 'profession')">Profesija</button>         
-           
-            
-            <button class="tablinks" onclick="openSection(event, 'info')" >Info</button>
-             </div>
+<title>Galvenā lapa</title>
 
-        <div id="student" class="tabcontent">
-                <?php include_once('Pages/students_page.php');?>
-        </div>
-        <div id="course" class="tabcontent">
-                <?php include("Pages/courses_page.php");?>
-        </div>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="./css/mainMenuBar.css" />
+  <script src="/KVD/js/script.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <?php include_once($_SERVER["DOCUMENT_ROOT"] . "/KVD/extras/includes.php"); ?>
+</head>
 
-        <div id="profession" class="tabcontent">
-                <?php include("Pages/professions_page.php");?>
-        </div>
-  
-         <div id="info" class="tabcontent">
-                <?php include("Pages/info_page.php");?>
-                </div>
+<body>
+  <nav class="navMenu">
+    
+    <a href="/KVD/Pages/students_page.php">Students</a>
+    <a href="../KVD/Pages/remark_page.php">Remarks</a>
+    <a href="/KVD/Pages/Tables.php">Test</a>
+    <br>
+    <div class="dot"></div>
+    <footer class='footer'>&copy; Artjoms L. & Kristaps K. </footer>
+    <input onclick="change();changeMode()" type="button" value="Night Mode" id="Mode" class='modeButton'></input>
+  </nav>
+  <div>
 
+</body>
 
-            </body>
-            
-            <script>
-                document.getElementById("defaultOpen").click();
-            </script>
-        </html>
+</html>

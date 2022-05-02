@@ -4,7 +4,7 @@
         private $infos;
         
         private $table = "info";
-        
+
         private $studentsService, $courseService, $professionsService;
         
         public function insertInfo($conn, $fName, $lName,$codes,$years,$pNames,$cNames){
@@ -33,7 +33,7 @@
                     break;
                 }
             }         
-            
+
             if(!$infosExists){
                $sql = "INSERT INTO ".$this->table."(student_id,course_id,profession_id) VALUES ($studentID, $courseID, $professionID)";
             
@@ -77,7 +77,8 @@
                 return "<br> Delete process has failed!";
             }
         }
-        
+
+
         public function insertNodarbibaAll($conn, $fName, $lName,$codes,$years,$pNames,$cNames){
             $studentsService = new StudentsService();
             $courseService = new CoursesService();
@@ -211,4 +212,3 @@
             return $infos;
         }
     }
-?>

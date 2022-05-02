@@ -4,40 +4,42 @@
         
         private $table = "students";
         
-        public function insertStudents($conn, $firstName, $lastName,String $codes, $years){
+        public function insertStudents($conn, $firstName, $lastName, $codes,$courses,$professions, $years){
             $studentExists = false;
             $students = $this->getAllStudents($conn);
             foreach($students as $s){
                 $fName = $s->getFirstName();
                 $lName = $s->getLastName();
                 $code = $s->getCodes();
+                $course = $s->getCourses();
                 $year = $s->getYears();
-                if($fName == $firstName && $lName == $lastName && $code == $codes && $year == $years){
+                $profession = $s->getProfessions();
+                if($fName == $firstName && $lName == $lastName && $code == $codes && $year == $years && $course == $courses && $profession == $professions){
                     $studentExists = true;
                     break;
                 }
             }
             
             if(!$studentExists){
-                $sql = "INSERT INTO ".$this->table."(firstName, lastName,codes,years) VALUES ('$firstName', '$lastName','$codes',$years)";
+                $sql = "INSERT INTO ".$this->table."(firstName, lastName,codes,courses,professions,years) VALUES ('$firstName', '$lastName','$codes','$courses','$professions',$years)";
                 
                 $isInserted = $conn->query($sql);
             
                 if($isInserted){
-                    return "<br> Students $fName $lName $code $year is added in system!";
+                    return "<br> Students $fName $lName $code $course $professions $year is added in system!";
                 }
                 else{
                     return "<br> Insertation process has failed!";
                 }
             }
             else{
-                return "<br> Students $fName $lName $code $year already exist in DB!";
+                return "<br> Students $fName $lName $code $course $professions $year already exist in DB!";
             }
             
         }
         
-        public function updateStudents($conn, $id, $newfName, $newlName,String $newCode, $newYear){
-            $sql = "UPDATE ".$this->table." SET firstName = '$newfName', lastName = '$newlName', codes = '$newCode', years = $newYear WHERE id_student = $id";
+        public function updateStudents($conn, $id, $newfName, $newlName, $newCode,$newCourse,$newProfession, $newYear){
+            $sql = "UPDATE ".$this->table." SET firstName = '$newfName', lastName = '$newlName', codes = '$newCode', courses = '$newCourse',professions = '$newProfession', years = $newYear WHERE id_student = $id";
             
             $isUpdated = $conn->query($sql);
             
@@ -62,8 +64,8 @@
             }
         }
         
-        public function getStudentsID($conn, $fName, $lName,String $code,$year):int{
-            $sql = "SELECT id_student FROM ".$this->table." WHERE firstName = '$fName' AND lastName = '$lName' AND codes = '$code' AND years = $year;";
+        public function getStudentsID($conn, $fName, $lName, $code,$course,$profession,$year):int{
+            $sql = "SELECT id_student FROM ".$this->table." WHERE firstName = '$fName' AND lastName = '$lName' AND codes = '$code' AND courses = '$course' AND professions = '$profession' AND years = $year;";
             $result = $conn->query($sql);
             $row = $result->fetch_assoc();
             $id = $row['id_student'];
@@ -72,15 +74,17 @@
         }
         
         public function getStudentsByID($conn, $id):Students{
-            $sql = "SELECT firstName, lastName ,codes,years FROM ".$this->table." WHERE id_student = $id";
+            $sql = "SELECT firstName, lastName ,codes,courses,professions,years FROM ".$this->table." WHERE id_student = $id";
             
             $result = $conn->query($sql);
             $row = $result->fetch_assoc();
             $fName = $row['firstName'];
             $lName = $row['lastName'];
-            $code = (int) $row['codes'];
-            $year = (int) $row['years'];
-            $this->student = new Students($fName, $lName,$code,$year);
+            $code =  $row['codes'];
+            $course =  $row['courses'];
+            $profession = $row['professions'];
+            $year =  $row['years'];
+            $this->student = new Students($fName, $lName,$code,$course,$profession,$year);
             
             return $this->student;
         }
@@ -94,13 +98,15 @@
             $result = $conn->query($sql);
             
             while($row = $result->fetch_object()){
-                $id = (int)$row->id_student;
+                $id = $row->id_student;
                 $fName = $row->firstName;
                 $lName = $row->lastName;
-                $code = (int)$row->codes;
-                $year = (int)$row->years;
+                $code = $row->codes;
+                $course = $row->courses;
+                $profession = $row->professions;
+                $year = $row->years;
 
-                $this->student = new Students($fName, $lName, $code,$year);
+                $this->student = new Students($fName, $lName, $code,$course,$profession,$year);
                 $this->student->setID($id);
                 
                 array_push($students, $this->student);
@@ -109,4 +115,3 @@
             return $students;
         }
     }
-?>

@@ -6,12 +6,16 @@
         private $firstName;
         private $lastName;
         private $codes;
+        private $courses;
+        private $professions;
         private $years;
 
-        public function __construct($firstName, $lastName,String $codes,$years){
+        public function __construct($firstName, $lastName,$codes,$courses,$professions,$years){
             $this->firstName = $firstName;
             $this->lastName = $lastName;
             $this->codes = $codes;
+            $this->courses = $courses;
+            $this->professions = $professions;
             $this->years = $years;
         }
         
@@ -44,7 +48,7 @@
         }
 
        
-        public function setCodes(String $codes)
+        public function setCodes( $codes)
         {
                 $this->codes = $codes;
 
@@ -61,6 +65,30 @@
         public function setYears($years)
         {
                 $this->years = $years;
+
+                return $this;
+        }
+
+        public function getCourses()
+        {
+                return $this->courses;
+        }
+        public function setCourses($courses)
+        {
+                $this->courses = $courses;
+
+                return $this;
+        }
+
+        public function getProfessions()
+        {
+                return $this->professions;
+        }
+
+
+        public function setProfessions($professions)
+        {
+                $this->professions = $professions;
 
                 return $this;
         }
