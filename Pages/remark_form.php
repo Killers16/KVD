@@ -4,7 +4,7 @@
     <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close">&times;</span>
     <div class="container">
       Vārds: <input type="text" name="fname" />
-      Uzvārds: <input type="text" name="lname" />
+      Uzvārds: <input type="text" name="lname"  />
       Piezīme: <textarea style="margin-bottom:15px;" type="text" name="names"></textarea>
       <input type="submit" class="btn btn-success" name="newRemark" value="Pievienot" />
 

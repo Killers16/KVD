@@ -72,11 +72,9 @@ textarea {
 
 /* The Close Button (x) */
 .close {
- 
-  right: 25px;
+  margin-right: 10px;
   top: 0;
   color: #000;
-  font-size: 35px;
   font-weight: bold;
 }
 
