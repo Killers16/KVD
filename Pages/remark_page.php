@@ -66,6 +66,7 @@ include_once($_SERVER["DOCUMENT_ROOT"] . "/KVD/extras/includes.php");
         <input type="file" name="excel" />
         <input type="submit" name="import" class="btn btn-info" value="Import" style="display:block;" />
       </form>
+      
       <?php
 
       $remarksService = new RemarksService();
@@ -136,8 +137,18 @@ include_once($_SERVER["DOCUMENT_ROOT"] . "/KVD/extras/includes.php");
         }
         header('Location: remark_page.php');
       }
+      
 
+      if(isset($_POST["massdelete"]) && isset($_POST["deleteId"])){
+        foreach($_POST["deleteId"] as $deleteId){
+          $delete = "DELETE FROM remarks WHERE id_remarks = $deleteId";
+          mysqli_query($connect, $delete);
+        }
+        header('Location: remark_page.php');
+      }
       ?>
+      
+      
 
       <?php
       include_once "../Pages/remark_form.php";

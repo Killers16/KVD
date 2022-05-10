@@ -9,22 +9,20 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <?php
+ini_set('display_errors', '1');
 include_once($_SERVER["DOCUMENT_ROOT"] . "/KVD/extras/includes.php");
 $connect = mysqli_connect("localhost", "root", "root", "KVD");
 
 ?>
-
+<form class="" action="" method="post">
 <div class="content">
-
   <div class="container">
     <div class="table-responsive">
-
+    <button type="submit" class="btn btn-danger" name="massdelete">Delete</button> 
       <?php
-
-      $sqlQuery = "SELECT * FROM remarks ";
-      $resultSet = mysqli_query($conn, $sqlQuery) or die("database error:" . mysqli_error($conn));
+      $rows = mysqli_query($conn, "SELECT * FROM remarks");
       ?>
-
+      
       <table class="table table-striped custom-table">
         <div class="form-group pull-right">
           <input class="form-control" id="myInput" type="text" placeholder="Search..">
@@ -32,61 +30,61 @@ $connect = mysqli_connect("localhost", "root", "root", "KVD");
         <thead>
           <tr>
             <th scope="col">
-              <label class="control control--checkbox">
-                <input type="checkbox" id="selectAllCheckbox" onclick="checkAll();" class="js-check-all" />
-                <div class="control__indicator"></div>
+            <label class="control control--checkbox">
+              <input type="checkbox" id="selectAllCheckbox" onclick="checkAll();" class="js-check-all" name="deleteId[]" value="<?php echo $row['id_remarks']; ?>">
+              <div class="control__indicator"></div>
               </label>
             </th>
             <th scope="col">ID</th>
             <th scope="col">Vards</th>
             <th scope="col">Uzvards</th>
-            <th scope="col">Piezime</th>
+            <th scope="col">Piezēme</th>
             <th scope="col">Funkcijas</th>
 
           </tr>
-
         </thead>
         <tbody id="myTable">
-          <?php while ($developer = mysqli_fetch_assoc($resultSet)) { ?>
+          <?php  $i = 1;
+        foreach($rows as $row) : ?>
+            
             <tr scope="row">
               <td>
                 <label class="control control--checkbox">
-                  <input type="checkbox" />
+                  <input type="checkbox" name="deleteId[]"  value="<?php echo $row['id_remarks']; ?>">
                   <div class="control__indicator"></div>
                 </label>
               </td>
               <td>
-                <?php echo $developer['id_remarks']; ?>
+                  <?php echo $i++; ?>
               </td>
+              <td class="pl-0">
 
+
+              <?php echo $row["firstName"]; ?>
+
+              </td>
               <td>
-
-
-                <?php echo $developer['firstName']; ?>
+              <?php echo $row["lastName"]; ?>
 
               </td>
-              <td>
-                <?php echo $developer['lastName']; ?>
+              <td><?php echo $row["names"]; ?></td>
+             
 
               </td>
-              <td><?php echo $developer['names']; ?></td>
-
-              <td><a href=<?= "?delete=" . $developer['id_remarks'] ?> class="more">Delete</a> |
-
-
-                <a href=<?= "?edit=" . $developer['id_remarks'] ?> onclick="document.getElementById('id01').style.display='block'">Edit</a>
+              <td><a href=<?= "?delete=" . $row['id_remarks'] ?> class="more">Delete</a> |
+                <a href=<?= "?edit=" . $row['id_remarks'] ?> onclick="document.getElementById('id01').style.display='block'">Edit</a>
               </td>
             </tr>
 
 
-          <?php } ?>
-
+            <?php endforeach; ?>
         </tbody>
       </table>
-
     </div>
   </div>
 </div>
+ 
+ </form>
 <script>
   function checkAll() {
     var inputs = document.getElementsByTagName("input");
@@ -109,9 +107,12 @@ $connect = mysqli_connect("localhost", "root", "root", "KVD");
     });
   });
 </script>
-
 <script src="../js/extras/bootstrap.min.js"></script>
 <script src="../js/extras/jquery.min.js"></script>
 <script src="../js/extras/main.js"></script>
 <script src="../js/extras/owl.carousel.min.js"></script>
 <script src="../js/extras/popper.js"></script>
+
+      
+          
+    

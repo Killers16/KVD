@@ -19,7 +19,6 @@ ini_set('display_errors', '1');
     
     <a href="/KVD/Pages/students_page.php">Students</a>
     <a href="../KVD/Pages/remark_page.php">Remarks</a>
-    <a href="/KVD/Pages/Tables.php">Test</a>
     <br>
     <div class="dot"></div>
     <footer class='footer'>&copy; Artjoms L. & Kristaps K. </footer>

@@ -2,6 +2,7 @@
 ini_set('display_errors', '1');
 include_once($_SERVER["DOCUMENT_ROOT"] . "/KVD/extras/includes.php");
 $connect = mysqli_connect("localhost", "root", "root", "KVD");
+
 ?>
 <?php $studentsService = new StudentsService(); ?>
 <!doctype html>
@@ -101,7 +102,7 @@ $connect = mysqli_connect("localhost", "root", "root", "KVD");
           $professions = $_GET['profession'];
           $years = $_GET['year'];
 
-          $info = $studentsService->insertStudents($conn, $_GET['edit'], $firstName, $lastName, $codes, $courses, $professions, $years);
+          $info = $studentsService->updateStudents($conn, $_GET['edit'], $firstName, $lastName, $codes, $courses, $professions, $years);
           header('Location: students_page.php');
         }
       }
@@ -148,6 +149,14 @@ $connect = mysqli_connect("localhost", "root", "root", "KVD");
           $output .= '</table>';
         } else {
           $output = '<label class="text-danger">Invalid File</label>'; //if non excel file then
+        }
+        header('Location: students_page.php');
+      }
+
+      if(isset($_POST["massdelete"]) && isset($_POST["deleteId"])){
+        foreach($_POST["deleteId"] as $deleteId){
+          $delete = "DELETE FROM students WHERE id_student = $deleteId";
+          mysqli_query($connect, $delete);
         }
         header('Location: students_page.php');
       }
