@@ -1,59 +1,54 @@
 <?php
 
 
-    class Remarks{
-        private $id;
-        private $Rnames;
-        private $firstName;
-        private $lastName;
-        
-        public function __construct($firstName,$lastName,$Rnames){
-            
-            $this->firstName = $firstName;
-            $this->lastName = $lastName;
-            $this->Rnames = $Rnames;
-        }
-        
-        public function setID(int $id){
-            $this->id = $id;
-        }
-        
-        public function getID(){
-            return $this->id;
-        }
-        
-        public function setRnames($Rnames){
-            $this->Rnames = $Rnames;
-        }
-        
-        public function getRnames(){
-            return $this->Rnames;
-        }
-        
-        public function getFirstName()
-        {
-                return $this->firstName;
-        }
-
-        public function setFirstName($firstName)
-        {
-                $this->firstName = $firstName;
-
-                return $this;
-        }
-
- 
-        public function getLastName()
-        {
-                return $this->lastName;
-        }
+class Remarks
+{
+    private $id;
+    private $Rnames;
+    private $students_id;
 
 
-        public function setLastName($lastName)
-        {
-                $this->lastName = $lastName;
+    public function __construct($students_id, $Rnames)
+    {
 
-                return $this;
-        }
+
+        $this->students_id = $students_id;
+        $this->Rnames = $Rnames;
     }
-?>
+
+    public function setID(int $id)
+    {
+        $this->id = $id;
+    }
+
+    public function getID()
+    {
+        return $this->id;
+    }
+
+    public function setRnames($Rnames)
+    {
+        $this->Rnames = $Rnames;
+    }
+
+    public function getRnames()
+    {
+        return $this->Rnames;
+    }
+
+
+
+
+    public function getReStudentID()
+    {
+        return $this->students_id;
+    }
+
+
+    public function setReStudentID($students_id)
+    {
+        $this->students_id = $students_id;
+
+        return $this;
+    }
+}

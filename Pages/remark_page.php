@@ -1,7 +1,6 @@
 <?php
 ini_set('display_errors', '1');
-include_once($_SERVER["DOCUMENT_ROOT"] . "/KVD/extras/includes.php");
-
+include_once("../extras/includes.php");
 ?>
 
 <!doctype html>
@@ -11,16 +10,17 @@ include_once($_SERVER["DOCUMENT_ROOT"] . "/KVD/extras/includes.php");
   <title>Piezīmes Tabula</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../css/sidebar/style.css">
-  <link rel="stylesheet" href="../css/form/style.css">
+  
+  
+        
 
 </head>
 
 <body>
-
+<style>
+  
+</style>
   <div class="wrapper d-flex align-items-stretch">
     <nav id="sidebar">
       <div class="custom-menu">
@@ -32,22 +32,16 @@ include_once($_SERVER["DOCUMENT_ROOT"] . "/KVD/extras/includes.php");
       <h1><a class="logo">Uzskaites Sistēma</a></h1>
       <ul class="list-unstyled components mb-5">
         <li class="active">
-          <a href="../index.php"><span class="fa fa-home mr-3"></span> Home</a>
+          <a href="../index.php" style="color: #818181;"><span class="fa fa-home mr-3" style="color: #818181;"></span>Galvenā lapa</a>
         </li>
         <li>
-          <a href="../Pages/students_page.php"><span class="fa fa-user mr-3"></span> Auzdekņi</a>
+          <a href="../Pages/students_page.php" style="color: #818181;"><span class="fa fa-user mr-3"></span>Auzdekņi</a>
         </li>
         <li>
-          <a href="../Pages/remark_page.php"><span class="fa fa-sticky-note mr-3"></span> Piezīmes</a>
+          <a href="../Pages/remark_page.php" style="color: #f1f1f1;"><span class="fa fa-sticky-note mr-3"></span>Piezīmes</a>
         </li>
         <li>
-          <a href="#"><span class="fa fa-sticky-note mr-3"></span> Subcription</a>
-        </li>
-        <li>
-          <a href="#"><span class="fa fa-paper-plane mr-3"></span> Settings</a>
-        </li>
-        <li>
-          <a href="#"><span class="fa fa-paper-plane mr-3"></span> Information</a>
+          <a href="../Pages/certificates_page.php" style="color: #818181;"><span class="fa fa-sticky-note mr-3"></span>Sertifikāti</a>
         </li>
       </ul>
 
@@ -55,46 +49,83 @@ include_once($_SERVER["DOCUMENT_ROOT"] . "/KVD/extras/includes.php");
 
     <!-- Page Content  -->
     <div id="content" class="p-4 p-md-5 pt-5 ">
-      <button class="btn btn-primary" onclick="document.getElementById('id02').style.display='block'">Pievienot</button>
 
-      <form method="post" action="../export/export_remarks.php">
-        <input type="submit" name="export" class="btn btn-success" value="Export" />
-      </form>
-
-      <form method="post" enctype="multipart/form-data">
-        <label>Select Excel File</label>
-        <input type="file" name="excel" />
-        <input type="submit" name="import" class="btn btn-info" value="Import" style="display:block;" />
-      </form>
-      
       <?php
 
       $remarksService = new RemarksService();
 
-      include_once "../Pages/remark_table.php";
+      include_once "../table/remark_table.php";
       ?>
+
+      <!--ADD Remark -->
+      <div class="modal fade" id="ADD">
+        <div class="modal-dialog">
+          <div class="modal-content" style="width:96%;">
+
+
+            <div class="modal-header">
+
+              <h4 class="modal-title">Piezīmju pievienošana</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+              <form method="get">
+                <?php
+                $rows = mysqli_query($conn, "SELECT id_student, concat(firstName,' ',lastName) as students FROM students");
+                $studentsService = new StudentsService();
+                $remarksService = new RemarksService();
+                ?>
+
+                Students<select name="students" class="students">
+
+                  <?php foreach ($rows as $row) : ?>
+                    <option value="<?php echo ($row["id_student"]); ?>">
+
+                      <?php echo ($row["students"]); ?>
+                    </option>
+                  <?php endforeach; ?>
+                </select>
+                Piezīme: <textarea style="margin-bottom:15px;" type="text" name="names" id="r_name"></textarea>
+            </div>
+
+            <!-- Start footer -->
+            <div class="modal-footer">
+
+              <input type="submit" class="btn btn-success" name="newRemark" value="Pievienot" onclick="return Validation_remark()" />
+              </form>
+
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Aizvērt</button>
+            </div>
+            <!-- End footer -->
+          </div>
+        </div>
+      </div>
+      <!--END ADD Remark -->
+
+     
 
       <?php
       if (isset($_GET['newRemark'])) {
 
-        if ($_GET['fname'] != "" && $_GET['lname'] != "" && $_GET['names'] != "") {
-          $firstName = $_GET['fname'];
-          $lastName = $_GET['lname'];
+        if ($_GET['students'] != ""  && $_GET['names'] != "") {
+          $students_id = $_GET['students'];
           $Rnames = $_GET['names'];
 
-          $info = $remarksService->insertRemarks($conn, $firstName, $lastName, $Rnames);
+          $info = $remarksService->insertRemarks($conn, $students_id, $Rnames);
         }
 
         header('Location: remark_page.php');
       }
 
       if (isset($_GET['edit'])) {
-        if (isset($_GET['fname']) && $_GET['lname'] != "" && $_GET['names'] != "") {
-          $firstName = $_GET['fname'];
-          $lastName = $_GET['lname'];
+        if (isset($_GET['students']) &&  $_GET['names'] != "") {
+          $students_id = $_GET['students'];
+
           $Rnames = $_GET['names'];
 
-          $info = $remarksService->updateRemarks($conn, $_GET['edit'], $firstName, $lastName, $Rnames);
+          $info = $remarksService->updateRemarks($conn, $_GET['edit'], $students_id, $Rnames);
           header('Location: remark_page.php');
         }
       }
@@ -120,13 +151,11 @@ include_once($_SERVER["DOCUMENT_ROOT"] . "/KVD/extras/includes.php");
             $highestRow = $worksheet->getHighestRow();
             for ($row = 2; $row <= $highestRow; $row++) {
               $output .= "<tr>";
-              $name = mysqli_real_escape_string($connect, $worksheet->getCellByColumnAndRow(0, $row)->getValue());
-              $last = mysqli_real_escape_string($connect, $worksheet->getCellByColumnAndRow(1, $row)->getValue());
-              $msg = mysqli_real_escape_string($connect, $worksheet->getCellByColumnAndRow(2, $row)->getValue());
-              $query = "INSERT INTO remarks(firstName,lastName,names) VALUES ('" . $name . "', '" . $last . "', '" . $msg . "')";
+              $students_id = mysqli_real_escape_string($connect, $worksheet->getCellByColumnAndRow(0, $row)->getValue());
+              $msg = mysqli_real_escape_string($connect, $worksheet->getCellByColumnAndRow(1, $row)->getValue());
+              $query = "INSERT INTO remarks(students_id,names) VALUES ('" . $students_id . "','" . $msg . "')";
               mysqli_query($connect, $query);
-              $output .= '<td>' . $name . '</td>';
-              $output .= '<td>' . $last . '</td>';
+              $output .= '<td>' . $students_id . '</td>';
               $output .= '<td>' . $msg . '</td>';
               $output .= '</tr>';
             }
@@ -137,23 +166,22 @@ include_once($_SERVER["DOCUMENT_ROOT"] . "/KVD/extras/includes.php");
         }
         header('Location: remark_page.php');
       }
-      
 
-      if(isset($_POST["massdelete"]) && isset($_POST["deleteId"])){
-        foreach($_POST["deleteId"] as $deleteId){
+
+      if (isset($_POST["massdelete"]) && isset($_POST["deleteId"])) {
+        foreach ($_POST["deleteId"] as $deleteId) {
           $delete = "DELETE FROM remarks WHERE id_remarks = $deleteId";
           mysqli_query($connect, $delete);
         }
         header('Location: remark_page.php');
       }
-      ?>
-      
+
       
 
-      <?php
-      include_once "../Pages/remark_form.php";
-      ?>
+      include_once("../form/remarks_form.php")
 
+      
+      ?>
 
     </div>
 

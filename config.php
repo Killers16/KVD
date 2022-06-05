@@ -3,10 +3,10 @@ header('Content-Type: text/html; charset=utf-8');
 include_once('extras/includes.php');
 
 $hostname = "localhost";
-$user = "root";
+$user = "admin";
 $database = "KVD";
 
-$conn = new mysqli($hostname, $user, 'root', $database);
+$conn = new mysqli($hostname, $user, 'admin', $database);
 
 if ($conn->connect_error) {
   die("Connection failed!" . $conn->connect_error);
@@ -14,9 +14,16 @@ if ($conn->connect_error) {
 
 
 try {
-  $dbConn = new PDO("mysql:host={$hostname};dbname={$database}", $user, "root");
+  $dbConn = new PDO("mysql:host={$hostname};dbname={$database}", $user, "admin");
   $dbConn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   $uri = $_SERVER['REQUEST_URI'];
 } catch (Exception $e) {
   echo $e->getMessage();
+}
+
+
+switch ($uri) {
+  case @"/home":
+    include_once('index.php');
+    break;
 }
