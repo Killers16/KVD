@@ -17,7 +17,7 @@ class StudentsService
             $year = $s->getYears();
             $profession = $s->getProfessions();
             $phone = $s->getPhones();
-            $lastSchool = $s->getLatsSchools();
+            $lastSchool = $s->getLastSchools();
 
             if (
                 $fName == $firstName &&

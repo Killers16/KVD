@@ -19,11 +19,11 @@ ini_set('display_errors', '1');
   <nav class="navMenu">
 
     <a href="./Pages/students_page.php">Students</a>
-    <a href="./Pages/remark_page.php">Remarks</a>
+    <a href="./Pages/remark_page.php">Piezīmes</a>
     <a href="./Pages/certificates_page.php">Sertifikāti</a>
     <br>
     <footer class='footer'>&copy; Artjoms L. & Kristaps K. </footer>
-    <input onclick="change();changeMode()" type="button" value="Night Mode" id="Mode" class='modeButton'></input>
+
   </nav>
   <div>
 

@@ -1,6 +1,6 @@
 <?php
 ini_set('display_errors', '1');
-include_once("../extras/includes.php");
+include_once("../includes.php");
 $connect = mysqli_connect("localhost", "admin", "admin", "KVD");
 $studentsService = new StudentsService();
 ?>
@@ -10,10 +10,10 @@ $studentsService = new StudentsService();
 <head>
   <title>Audzekņu Tabula</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<body>
+<body >
   <div class="wrapper d-flex align-items-stretch">
     <nav id="sidebar">
       <div class="custom-menu">
@@ -60,7 +60,7 @@ $studentsService = new StudentsService();
                 Uzvārds: <input type="text" name="lname" list="last_list" id="lname" />
                 <datalist id="last_list">
                 </datalist>
-                Personas kods: <input type="text" name="code" id="code" onkeyup="passcode(this)" maxlength="14" />
+                Personas kods: <input type="text" name="code" id="code" onkeyup="passcode(this)" maxlength="12" onkeypress="if (isNaN(String.fromCharCode(event.keyCode))) return false;" />
                 Kurss: <input type="text" name="course" list="courses_list" id="course">
                 <datalist id="courses_list">
                   <option>1.d</option>
@@ -108,7 +108,7 @@ $studentsService = new StudentsService();
                   <option>Telemehānika un loģistika</option>
                 </datalist>
                 Iestāšanas gads: <input type="text" name="year" id="year" onkeypress="if (isNaN(String.fromCharCode(event.keyCode))) return false;" maxlength="4" min="0" max="9999" />
-                Telefons: <input type="text" name="phone" id="phones" />
+                Telefons: <input type="text" name="phone" id="phones" onkeypress="if (isNaN(String.fromCharCode(event.keyCode))) return false;" maxlength="8"/>
                 Pēdeja skola:<textarea type="text" name="lastSchool" id="lastSchools"></textarea>
               </div>
               <!-- Start footer -->

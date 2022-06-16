@@ -31,12 +31,11 @@ input[type=number] {
 }
 
 #id01 {
-  
-  position: absolute;
-  right: 30%;
-  left: 30%;
-  width: 40%;
-  background-color: white;
+
+
+
+  width: 100% !important;
+ 
   display: none;
 }
 
@@ -49,6 +48,54 @@ textarea {
 }
 
 
-.editModal input, .editModal input {
+.editModal input,
+.editModal input {
   margin: 1rem;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  #id01 {
+    width: 100% !important;
+
+    
+    display: none;
+  }
+
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  #id01 {
+    width: 100% !important;
+
+    
+    display: none;
+  }
+
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  #id01 {
+    width: 100% !important;
+
+    
+    display: none;
+  }
+
+}
+@media (min-width: 1025px ) and (max-width: 1200px) {
+  #id01 {
+    margin-left: 10% !important;
+    width: 100% !important;
+    display: none;
+  }
+
+}
+@media (min-width: 1201px ){
+  #id01 {
+    width: 100% !important;
+
+    
+    display: none;
+  }
+
 }

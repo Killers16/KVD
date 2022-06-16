@@ -1,6 +1,6 @@
 <?php
 ini_set('display_errors', '1');
-include_once("../extras/includes.php");
+include_once("../includes.php");
 $connect = mysqli_connect("localhost", "admin", "admin", "KVD");
 ?>
 
@@ -28,7 +28,7 @@ $connect = mysqli_connect("localhost", "admin", "admin", "KVD");
         ?>
         <table class="table table-striped custom-table" id="Table">
           <div class="form-group pull-right">
-            <input class="form-control" id="myInput" type="text" placeholder="Meklēt...">
+            <input class="form-control" id="Input" type="text" placeholder="Meklēt...">
           </div>
           <thead>
             <tr>
@@ -41,12 +41,12 @@ $connect = mysqli_connect("localhost", "admin", "admin", "KVD");
               </th>
               <th scope="col">ID</th>
               <th scope="col">Vards/Uzvards</th>
-              <th scope="col">Piezīme</th>
+              <th scope="col">Piezīmes</th>
               <th scope="col">Funkcijas</th>
 
             </tr>
           </thead>
-          <tbody id="myTable">
+          <tbody id="Table">
             <?php $i = 1;
             foreach ($rows as $row) : ?>
 
@@ -101,9 +101,9 @@ $connect = mysqli_connect("localhost", "admin", "admin", "KVD");
 
 <script>
   $(document).ready(function() {
-    $("#myInput").on("keyup", function() {
+    $("#Input").on("keyup", function() {
       var value = $(this).val().toLowerCase();
-      $("#myTable tr").filter(function() {
+      $("#Table tr").filter(function() {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 
       });

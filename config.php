@@ -1,6 +1,6 @@
 <?php ob_start();
 header('Content-Type: text/html; charset=utf-8');
-include_once('extras/includes.php');
+include_once('includes.php');
 
 $hostname = "localhost";
 $user = "admin";
@@ -13,17 +13,6 @@ if ($conn->connect_error) {
 }
 
 
-try {
-  $dbConn = new PDO("mysql:host={$hostname};dbname={$database}", $user, "admin");
-  $dbConn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $uri = $_SERVER['REQUEST_URI'];
-} catch (Exception $e) {
-  echo $e->getMessage();
-}
 
 
-switch ($uri) {
-  case @"/home":
-    include_once('index.php');
-    break;
-}
+

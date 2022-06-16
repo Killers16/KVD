@@ -22,7 +22,10 @@ h6,
 .h6 {
   font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
-
+th,td
+{
+  text-align: center;
+}
 a {
   -webkit-transition: .3s all ease;
   -o-transition: .3s all ease;

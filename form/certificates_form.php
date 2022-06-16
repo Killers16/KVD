@@ -1,4 +1,4 @@
-<div id="id01" class="modal" style="width:30%;  <?php if ($_GET['edit']) {
+<div id="id01" class="modal" style="width:auto;  <?php if ($_GET['edit']) {
                                                   echo 'display:block;';
                                                 } ?>">
   <div class="modal-dialog">
@@ -6,7 +6,7 @@
       <form method="GET">
         <div class="modal-header">
           <h4 class="modal-title">Sertifikātu Rediģēšana</h4>
-          <span onclick="document.getElementById('id01').style.display='none';window.location = '../Pages/certificates_page.php'" class="btn-close" title="Close">&times;</span>
+          <span onclick="document.getElementById('id01').style.display='none';window.location = '../Pages/certificates_page.php'" class="btn-close" title="Close"></span>
         </div>
         <div class="modal-body">
           Students<select name="students" class="students">
@@ -21,10 +21,10 @@
 
           Izglītiba: <input type="text" name="ce_name" value="<?= $certificatesService->getCertificatesByID($conn, $_GET['edit'])->getCe_name(); ?> " />
 
-          Kods: <input type="text" name="ce_code" value="<?= $certificatesService->getCertificatesByID($conn, $_GET['edit'])->getCe_Codes(); ?> " />
+          Sertifikāta Nr: <input type="text" name="ce_code" id="ce_code_edit" value="<?= $certificatesService->getCertificatesByID($conn, $_GET['edit'])->getCe_Codes(); ?> " onkeyup="c_code_edit(this)" maxlength="18"  onkeypress="if (isNaN(String.fromCharCode(event.keyCode))) return false;"/>
           <label>Priekšmets:</label>
           <textarea style="margin-bottom:15px;" type="text" name="items"><?= $certificatesService->getCertificatesByID($conn, $_GET['edit'])->getCeItems(); ?> </textarea>
-          Izsniegšanas Gads: <input type="text" name="ce_year" value="<?= $certificatesService->getCertificatesByID($conn, $_GET['edit'])->getCe_Years(); ?> " />
+          Izsniegšanas Gads: <input type="text" name="ce_year" value="<?= $certificatesService->getCertificatesByID($conn, $_GET['edit'])->getCe_Years(); ?> " onkeypress="if (isNaN(String.fromCharCode(event.keyCode))) return false;" maxlength="4"/>
         </div>
 
 

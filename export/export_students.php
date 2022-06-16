@@ -16,7 +16,7 @@ $setData = '';
 }  
   
 header("Content-type: application/vnd.ms-excel;");  
-header("Content-Disposition: attachment; filename=Studets_database.xls");  
+header("Content-Disposition: attachment; filename=Students_database.xls");  
 header("Pragma: no-cache");
   
 header("Expires: 0");  

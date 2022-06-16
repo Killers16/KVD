@@ -1,6 +1,6 @@
 <?php
 ini_set('display_errors', '1');
-include_once("../extras/includes.php");
+include_once("../includes.php");
 ?>
 
 <!doctype html>
@@ -9,7 +9,7 @@ include_once("../extras/includes.php");
 <head>
   <title>Piezīmes Tabula</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
   
@@ -78,7 +78,7 @@ include_once("../extras/includes.php");
                 $remarksService = new RemarksService();
                 ?>
 
-                Students<select name="students" class="students">
+                Students:<select name="students" class="students">
 
                   <?php foreach ($rows as $row) : ?>
                     <option value="<?php echo ($row["id_student"]); ?>">
@@ -87,7 +87,7 @@ include_once("../extras/includes.php");
                     </option>
                   <?php endforeach; ?>
                 </select>
-                Piezīme: <textarea style="margin-bottom:15px;" type="text" name="names" id="r_name"></textarea>
+                Piezīme:<textarea style="margin-bottom:15px;" type="text" name="names" id="r_name"></textarea>
             </div>
 
             <!-- Start footer -->

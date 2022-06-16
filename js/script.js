@@ -1,12 +1,4 @@
-function changeMode() {
-    var element = document.body;
-    element.classList.toggle("dark-mode");
-}
-function change() {
-    var elem = document.getElementById("Mode");
-    if (elem.value == "Night Mode") elem.value = "Light Mode";
-    else elem.value = "Night Mode";
-}
+
 function Validation_certificate() {
     if (document.getElementById("ce_name").value.trim() == "") {
         Swal.fire({
@@ -230,14 +222,31 @@ function Validation_students() {
 }
 function passcode (element) {
  code = document.getElementById("code");
-    code = code.value.split(' - ').join('');
+    code = code.value.split('-').join('');
 
-    let finalVal = code.match(/.{1,6}/g).join(' - ');
+    let finalVal = code.match(/.{1,6}/g).join('-');
     document.getElementById("code").value = finalVal;
+}
+function passcode_edit (element) {
+    code = document.getElementById("code_edit");
+    code = code.value.split('-').join('');
+
+    let finalVal = code.match(/.{1,6}/g).join('-');
+    document.getElementById("code_edit").value = finalVal;
 }
 function c_code (element) {
     $(document).ready(function() {
         $("#ce_code").keyup(function(){
+            if ($(this).val().length == 4){
+                $(this).val($(this).val() + "/");
+            }
+        });
+    });
+
+}
+function c_code_edit (element) {
+    $(document).ready(function() {
+        $("#ce_code_edit").keyup(function(){
             if ($(this).val().length == 4){
                 $(this).val($(this).val() + "/");
             }

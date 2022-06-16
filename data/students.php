@@ -11,9 +11,9 @@ class Students
     private $professions;
     private $years;
     private $phones;
-    private $latsSchools;
+    private $lastSchools;
 
-    public function __construct($firstName, $lastName, $codes, $courses, $professions, $years,$phones, $latsSchools)
+    public function __construct($firstName, $lastName, $codes, $courses, $professions, $years,$phones, $lastSchools)
     {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
@@ -22,7 +22,7 @@ class Students
         $this->professions = $professions;
         $this->years = $years;
         $this->phones = $phones;
-        $this->latsSchools = $latsSchools;
+        $this->lastSchools = $lastSchools;
     }
 
     public function setID(int $id)
@@ -115,13 +115,13 @@ class Students
 
         return $this;
     }
-    public function getLatsSchools()
+    public function getLastSchools()
     {
-        return $this->latsSchools;
+        return $this->lastSchools;
     }
-    public function setLatsSchools($latsSchools)
+    public function setLastSchools($lastSchools)
     {
-        $this->latsSchools = $latsSchools;
+        $this->lastSchools = $lastSchools;
 
         return $this;
     }

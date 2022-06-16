@@ -1,6 +1,6 @@
     <?php
     ini_set('display_errors', '1');
-    include_once("../extras/includes.php");
+    include_once("../includes.php");
     ?>
     <div class="content">
       <div class="container">
@@ -26,7 +26,7 @@
 
             <table class="table table-striped custom-table">
               <div class="form-group pull-right">
-                <input class="form-control" id="myInput" type="text" placeholder="Meklēt...">
+                <input class="form-control" id="Input" type="text" placeholder="Meklēt...">
               </div>
               <thead>
                 <tr>
@@ -42,13 +42,13 @@
                   <th scope="col">Personas kods</th>
                   <th scope="col">Kurss</th>
                   <th scope="col">Profesija</th>
-                  <th scope="col">Gads</th>
-                  <th scope="col">Numurs </br>Ieprekšeja skola</th>
+                  <th style = "text-align: center;" scope="col">Iestāšanas<br>Gads</th>
+                  <th scope="col"> Tel. Numurs </br>Ieprekšeja skola</th>
                   <th scope="col">Funkcijas</th>
 
                 </tr>
               </thead>
-              <tbody id="myTable">
+              <tbody id="Table">
                 <?php $i = 1;
                 foreach ($rows as $row) : ?>
 
@@ -77,7 +77,7 @@
                     <td>
                       <?php echo $row["professions"]; ?>
                     </td>
-                    <td><?php echo $row["years"]; ?></td>
+                    <td style = "text-align: center;"><?php echo $row["years"]; ?></td>
                     </td>
                     <td >
                       <?php echo $row["phones"]; ?></br><hr/>
@@ -113,9 +113,9 @@
 
     <script>
       $(document).ready(function() {
-        $("#myInput").on("keyup", function() {
+        $("#Input").on("keyup", function() {
           var value = $(this).val().toLowerCase();
-          $("#myTable tr").filter(function() {
+          $("#Table tr").filter(function() {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 
           });

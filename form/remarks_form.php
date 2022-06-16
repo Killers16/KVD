@@ -1,5 +1,5 @@
 
-<div id="id01" class="modal" style="width:30%;  <?php if ($_GET['edit']) {
+<div id="id01" class="modal" style="width:auto;  <?php if ($_GET['edit']) {
                                                   echo 'display:block;';
                                                 } ?>">
   <div class="modal-dialog">
@@ -7,10 +7,10 @@
       <form method="GET">
         <div class="modal-header">
           <h4 class="modal-title">Piezīmju Rediģēšana</h4>
-          <span onclick="document.getElementById('id01').style.display='none';window.location = '../Pages/remark_page.php'" class="btn-close" title="Close">&times;</span>
+          <span onclick="document.getElementById('id01').style.display='none';window.location = '../Pages/remark_page.php'" class="btn-close" title="Close"></span>
         </div>
         <div class="modal-body">
-        Students<select name="students" class="students">
+        Students:<select name="students" class="students">
         <?php $studentsID =  $remarksService->getRemarksByID($conn, $_GET['edit'])->getReStudentID(); ?>
         <?php foreach ($rows as $row) : ?>
           <option <?php if ($row["id_student"] == $studentsID) echo "selected"; ?> value="<?php echo ($row["id_student"]); ?>">

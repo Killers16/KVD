@@ -25,4 +25,3 @@ CREATE TABLE certificates(
 	items VARCHAR(255) NOT NULL,
 	ce_years year(4) NOT NULL,
 	FOREIGN KEY (students_id) REFERENCES students(id_student) ON UPDATE CASCADE ON DELETE CASCADE);
-	-- Tabula: PRIEKSMETI		        Veids: PAMATTABULA
