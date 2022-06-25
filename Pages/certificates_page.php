@@ -44,7 +44,7 @@ $connect = mysqli_connect("localhost", "admin", "admin", "KVD");
     </nav>
 
     <!-- Start Page Content  -->
-    <div id="content" class="p-4 p-md-5 pt-5 ">
+    <div id="content" style = "width:95% !important;" class="p-4 p-md-5 ">
       <?php
       $certificatesService = new CertificatesService();
       include_once "../table/certificates_table.php"; ?>
@@ -79,7 +79,7 @@ $connect = mysqli_connect("localhost", "admin", "admin", "KVD");
                   <?php endforeach; ?>
                 </select>
                 Izglītiba: <input type="text" name="ce_name" id="ce_name" />
-                Sertifikāta Nr. <input type="text" name="ce_code" id="ce_code" onkeyup="c_code(this)" maxlength="18"  
+                Sertifikāta Nr. <input type="text" name="ce_code" id="ce_code" onkeyup="c_code(this)" maxlength="17"  
                 onkeypress="if (isNaN(String.fromCharCode(event.keyCode))) return false;"/>
                 
                 Priekšmets: <textarea style="margin-bottom:15px;" type="text" name="items" id="ce_items"></textarea>

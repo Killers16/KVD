@@ -40,7 +40,7 @@ $studentsService = new StudentsService();
     </nav>
     </style>
     <!-- Page Content  -->
-    <div id="content" class="p-4 p-md-5 pt-5 ">
+    <div id="content" style = "width:95% !important;" class="p-4 p-md-5">
       <?php
       include_once "../table/student_table.php";
       ?>
@@ -92,7 +92,6 @@ $studentsService = new StudentsService();
                   <option>A2.g</option>
                   <option>A2.m</option>
                   <option>A2.pd</option>
-
                 </datalist>
                 Profesija: <input type="text" name="profession" list="professions_list" id="profession"/>
                 <datalist id="professions_list">
@@ -141,8 +140,8 @@ $studentsService = new StudentsService();
       }
       header('Location: students_page.php');
     }
-    if (isset($_GET['edit'])) {
-      if (isset($_GET['fname']) && $_GET['lname'] != "" && $_GET['code'] && $_GET['course'] && $_GET['profession'] != "" && $_GET['year'] != "" && $_GET['phone'] != "" && $_GET['lastSchool']) {
+    if(isset($_GET['edit'])) {
+      if($_GET['fname'] != "" && $_GET['lname'] != "" && $_GET['code'] && $_GET['course'] && $_GET['profession'] != "" && $_GET['year'] != "" && $_GET['phone'] != "" && $_GET['lastSchool']) {
         $firstName = $_GET['fname'];
         $lastName = $_GET['lname'];
         $codes = $_GET['code'];

@@ -3,6 +3,9 @@ body {
   background-color: #fff;
   font-weight: 300;
 }
+#form-control{
+  max-width: 50px; 
+}
 
 p {
   font-weight: 300;

@@ -113,4 +113,4 @@ $connect = mysqli_connect("localhost", "admin", "admin", "KVD");
 </script>
 
 
-<script src="../js/extras/main.js"></script>
+<script src="../js/main.js"></script>

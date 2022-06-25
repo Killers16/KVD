@@ -21,7 +21,7 @@ include_once("../includes.php");
 <style>
   
 </style>
-  <div class="wrapper d-flex align-items-stretch">
+  <div class="wrapper d-flex align-items-stretch" >
     <nav id="sidebar">
       <div class="custom-menu">
         <button type="button" id="sidebarCollapse" class="btn btn-primary">
@@ -48,7 +48,7 @@ include_once("../includes.php");
     </nav>
 
     <!-- Page Content  -->
-    <div id="content" class="p-4 p-md-5 pt-5 ">
+    <div id="content" style = "width:95% !important;" class="p-4 p-md-5 ">
 
       <?php
 

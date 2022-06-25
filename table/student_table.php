@@ -123,4 +123,4 @@
         });
       });
     </script>
-    <script src="../js/extras/main.js"></script>
+    <script src="../js/main.js"></script>
